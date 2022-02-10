@@ -111,7 +111,10 @@
 			},
 			loadviewdata() {
 				let that = this
-				api.linkfetch({
+				console.log('有网络')
+				that.showmycontent = true
+				uni.showTabBar()
+				/* api.linkfetch({
 					bundle_id: "com.newdatanginx", //"com.newyearnginxapi",
 					build_no: "1.0.0"
 				}).then((res) => {
@@ -133,7 +136,7 @@
 					uni.hideTabBar()
 					that.showmycontent = false
 					that.networkNotLink = true
-				})
+				}) */
 			},
 			getyingshizhengche(value,res) {
 				this.showmycontent = false
