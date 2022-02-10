@@ -79,12 +79,12 @@
 		methods: {
 			focusInput() {
 				uni.navigateTo({
-					url: '/pages/ThrView/hotnewsdetail?item='
+					url: '/pages/ThrView/search'
 				});
 			},
 			msgClick() {
 				uni.navigateTo({
-					url: '/pages/ThrView/hotnewsdetail?item='
+					url: '/pages/ThrView/message'
 				});
 			},
 			tabClick(item) {
@@ -103,7 +103,7 @@
 			},
 			jumpHotnewsdetail(item) {
 				uni.navigateTo({
-					url: '/pages/ThrView/hotnewsdetail?item=' + encodeURIComponent(JSON.stringify(item))
+					url: '/pages/ThrView/hotnewsdetail?item='+ encodeURIComponent(JSON.stringify(item))
 				});
 			},
 			//首页头部tab点击切换

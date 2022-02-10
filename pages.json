@@ -38,6 +38,15 @@
 			"style": { "navigationBarTitleText": "资讯详情"}
 		},
 		
+		{
+			"path": "pages/ThrView/search",
+			"style": { "navigationBarTitleText": ""}
+		},
+		
+		{
+			"path": "pages/ThrView/message",
+			"style": { "navigationBarTitleText": "消息提醒"}
+		},
 		
 		{
 			"path": "pages/login/login",
