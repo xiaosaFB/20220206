@@ -1,5 +1,74 @@
 <template>
 	<view class="status_bar">
+		<view class="content">
+			<view class="q-title-search">
+			  <text class="text">期货原油宝</text>
+			  <view class="search">
+			    <u-search 
+			      placeholder="搜索期货hot话术" 
+				  bg-color="" 
+			      border-color="#FDF6EC"
+				  placeholderColor="#FFFFFF"
+				  color="#FFFFFF"
+				  searchIconColor="#FFFFFF"
+			      shape="round" 
+				  :show-action="false" 
+			      v-model="keyword"
+			      @change="onSearch">
+			    </u-search>
+			  </view>
+			</view>
+			<!-- banner -->
+			<view class="noticeView"></view>
+			<view class="u-demo-block">
+				<u-swiper
+						:list="list3"
+						previousMargin="50"
+						nextMargin="50"
+						circular
+						:autoplay="false"
+						radius="0"
+						bgColor="#FDF6EC"
+						indicator
+						indicatorMode="line"
+				></u-swiper>
+			</view>
+			<view class="noticeView_bot">
+			      <u-notice-bar bgColor="" icon="" :text="text1"></u-notice-bar>
+			</view>
+			
+			<!-- 话术 -->
+			<view class="huashuview">
+				<view class="qhgridView_top">
+					<image class="shugang" src="/static/paihangbang.png" mode=""></image>
+					<text style="margin-left: 10px;color: #000000;">期货搜索榜</text>
+				</view>
+				<view class="taglist">
+					<view style="margin: 5px 10px;" v-for="item in indexList" :key="item.name">
+						<u-tag @click="tagclick(item)" shape="circle" :text="item.name" plain plainFill borderColor="#efefef" color="#666" bgColor="#F6F6F6"> </u-tag>
+					</view>
+				</view>
+			</view>
+			<view class="scrolllist">
+				<u-scroll-list @right="right" @left="left">
+					<view class="scroll-list" style="flex-direction: row;">
+						<view
+								class="scroll-list__goods-item"
+								v-for="(item, index) in list4"
+								:key="index"
+								:class="[(index === 1) && 'scroll-list__goods-item--no-margin-right']"
+						>
+							<image class="scroll-list__goods-item__image" :src="item.thumb"></image>
+							<text class="scroll-list__goods-item__text">￥{{ item.price }}</text>
+						</view>
+						<view class="scroll-list__show-more">
+							<text class="scroll-list__show-more__text">查看更多</text>
+							<u-icon name="arrow-leftward" color="#666666" size="12"></u-icon>
+						</view>
+					</view>
+				</u-scroll-list>
+			</view>
+		</view>
 		
 		<!-- <view class="content"> -->
 			<!-- Logo-牛 -->
@@ -43,12 +112,45 @@
 export default {
 	data() {
 		return {
+			indicator: true,
+			list4: [{
+				price: '230.5',
+                thumb: 'https://cdn.uviewui.com/uview/goods/1.jpg'
+			}, {
+				price: '74.1',
+                thumb: 'https://cdn.uviewui.com/uview/goods/2.jpg'
+			}, {
+				price: '8457',
+                thumb: 'https://cdn.uviewui.com/uview/goods/6.jpg'
+			}, {
+				price: '1442',
+                thumb: 'https://cdn.uviewui.com/uview/goods/5.jpg'
+			}, {
+				price: '541',
+                thumb: 'https://cdn.uviewui.com/uview/goods/2.jpg'
+			}, {
+				price: '234',
+                thumb: 'https://cdn.uviewui.com/uview/goods/3.jpg'
+			}, {
+				price: '562',
+                thumb: 'https://cdn.uviewui.com/uview/goods/4.jpg'
+			}, {
+				price: '251.5',
+                thumb: 'https://cdn.uviewui.com/uview/goods/1.jpg'
+			}],
+			list3: [
+				'https://cdn.uviewui.com/uview/swiper/swiper3.png',
+				'https://cdn.uviewui.com/uview/swiper/swiper2.png',
+				'https://cdn.uviewui.com/uview/swiper/swiper1.png',
+			],
+			filterList: false,
+			keyword: '',
 			loginState: uni.getStorageSync('login_key'),
 			newlist:  ['国际资讯', '国内资讯', '更多资讯'],
 			curNow: 0,
 			newsListdatas: newsList,
 			newsListData: newsList.slice(0, 5),
-			indexList: ListHQ.slice(0, 7),
+			indexList: ListHQ.slice(3, 11),
 			topthrdata: TOPTHDATA,
 			text1: '修订棉花期货合约规则，助力提升服务实体经济能力'
 		}
@@ -60,7 +162,22 @@ export default {
 		this.newsListData = this.newsListdatas.slice(0, 5)
 	},
 	methods: {
-		toKline (symbol) {
+		left() {
+			console.log('left');
+		},
+		right() {
+			console.log('right');
+		},
+		onSearch () {
+		  if (this.$u.trim(this.keyword)) {
+		    this.filterList = this.topSymbols.filter((item) => {
+		      return item.title.toLocaleUpperCase().indexOf(this.$u.trim(this.keyword.toLocaleUpperCase())) != -1
+		    })
+		  } else {
+		    this.filterList = false
+		  }
+		},
+		tagclick(symbol) {
 		  uni.navigateTo({
 			url: '/pages/SecView/lineDetail?item='+ encodeURIComponent(JSON.stringify(symbol))
 		  })
@@ -123,13 +240,24 @@ export default {
 
 
 <style lang="scss" scoped>
+	.q-title-search {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  padding: 16rpx 60rpx;
+	  .text {
+	    font-size: 40rpx;
+	    color: #FFFFFF;
+	  }
+	}
 	.content {
 		text-align: center;
 		padding-bottom: 0;
 		padding-bottom: constant(safe-area-inset-bottom);  
 		padding-bottom: env(safe-area-inset-bottom);  
 		overflow: hidden;
-		background: url(@/static/homebg.png) no-repeat fixed top center;
+		background: url(@/static/homered.png)  fixed center center;
+		min-height: 100vh;
 		// background-size:100% 270px; 
 		.bigview {
 			margin-top: 0rpx;
@@ -143,21 +271,90 @@ export default {
 			} 
 		}
 		.noticeView {
-			padding: 10px;
-			margin: 10px 0 0 15%;
-			width: 70%;
-			border-radius: 100px;
+			// padding: 10px;
+			height: 35px;
+			margin: 10px 0 0 0;
+			width: 100%;
+			border-radius: 100px 100px 0 0;
 			background-color: rgba(253,246,236,1);
 		}
-		.qhgridView_top {
-			padding: 50rpx 0 20px 20px;
-			display: flex;
-			align-items: center;
-			.shugang {
-				width: 40px;
-				height: 40px;
+		
+		.noticeView_bot {
+			// margin: 10px 0 0 0;
+			width: 100%;
+			border-radius: 0 0 100px 100px ;
+			background-color: rgba(253,246,236,1);
+		}
+		.huashuview {
+			margin: 10px 15px;
+			min-height: 200px;
+			border-radius: 10px ;
+			background-color: rgba(253,246,236,1);
+			.qhgridView_top {
+				padding: 50rpx 0 20px 20px;
+				display: flex;
+				align-items: center;
+				.shugang {
+					width: 20px;
+					height: 20px;
+				}
+			}
+			.taglist {
+				margin: 0px 10px;
+				display: flex;
+				overflow: hidden;
+				flex-wrap: wrap;
 			}
 		}
+		.scrolllist {
+			margin: 0 15px;
+			.scroll-list {
+				@include flex(column);
+			
+				&__goods-item {
+					margin-right: 20px;
+					background-color: #fff;
+					&__image {
+						width: 60px;
+						height: 60px;
+						border-radius: 4px;
+					}
+			
+					&__text {
+						color: #333;
+						text-align: center;
+						font-size: 12px;
+						margin-top: 5px;
+					}
+				}
+			
+				&__show-more {
+					background-color: #fff0f0;
+					border-radius: 3px;
+					padding: 3px 6px;
+					@include flex(column);
+					align-items: center;
+			
+					&__text {
+						font-size: 12px;
+						width: 12px;
+						color: #666666;
+						line-height: 16px;
+					}
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		.paihangbangview {
 			background-color: #efefef;
 			margin: 0 20px 0px 20px; 
@@ -220,6 +417,5 @@ export default {
 	.status_bar {
 	  height: var(--status-bar-height);
 	  width: 100%;
-	 
 	}
 </style>

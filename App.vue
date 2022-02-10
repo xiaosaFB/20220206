@@ -2,6 +2,7 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch12233') 
+			plus.screen.lockOrientation('portrait-primary');
 		},
 		onShow: function() {
 			console.log('App Show1111')

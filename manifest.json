@@ -85,7 +85,7 @@
                 "ios" : {
                     "storyboard" : "C:/Users/11750/Downloads/CustomStoryboard.zip"
                 },
-                "useOriginalMsgbox" : true
+                "useOriginalMsgbox" : false
             }
         }
     },

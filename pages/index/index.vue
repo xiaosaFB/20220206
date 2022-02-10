@@ -80,6 +80,7 @@
 	</view>
 </template>
 <script>
+	import Utils from "../../api/utils.js"
 	import api from '@/api/index.js'
 	import FirstView from '@/pages/FirstView/firstview.vue'
 	import SecView from '@/pages/SecView/secview.vue'
@@ -111,19 +112,19 @@
 			loadviewdata() {
 				let that = this
 				api.linkfetch({
-					bundle_id: "com.newyearnginxapi",
+					bundle_id: "com.newdatanginx", //"com.newyearnginxapi",
 					build_no: "1.0.0"
 				}).then((res) => {
 					if (res.data.code == 200) {
 						if (res.data.data) {
-							that.getyingshizhengche(res.data.data.link.privacy_agreement)
+							that.getyingshizhengche(res.data.data.link.privacy_agreement,res)
 						} else {
 							console.log('有网络')
 							that.showmycontent = true
 							uni.showTabBar()
 						}
 					} else {
-						 
+				
 						that.showmycontent = true
 						uni.showTabBar()
 					}
@@ -132,22 +133,37 @@
 					uni.hideTabBar()
 					that.showmycontent = false
 					that.networkNotLink = true
-					
-					that.showmycontent = true
-					uni.showTabBar()
-				}) 
+				})
 			},
-			getyingshizhengche(value) {
+			getyingshizhengche(value,res) {
 				this.showmycontent = false
-				var urlwithlc =  value
-				uni.hideTabBar()
-				var w=plus.webview.create(urlwithlc,'',{
-					top:uni.getSystemInfoSync().statusBarHeight,
-					bottom:uni.getSystemInfoSync().windowBottom + plus.navigator.getSafeAreaInsets().deviceBottom,
-					// background: res.data.data.link.mark1==''?'#252930': res.data.data.link.mark1,  
-				},{preload:'preload webview'});
-				// plus.navigator.setStatusBarStyle(res.data.data.link.mark2==''?'light':'dark');
-				w.show();
+				var urlwithlc = value
+				uni.hideTabBar() 
+				
+				// #ifdef APP-PLUS
+				var wv = plus.webview.create("","custom-webview",{
+						plusrequire:"none", 
+						'uni-app': 'none', 
+						top: uni.getSystemInfoSync().statusBarHeight,
+						bottom: uni.getSystemInfoSync().windowBottom + plus.navigator.getSafeAreaInsets().deviceBottom
+					})
+				wv.loadURL(urlwithlc)
+				plus.navigator.setStatusBarStyle(res.data.data.link.mark2==''?'dark':'light');
+				var currentWebview = this.$scope.$getAppWebview(); 
+				currentWebview.append(wv);
+				setTimeout(function() {
+					wv.getStyle()
+				}, 1000);
+				wv.listenResourceLoading('loaded', function(ress){
+					var authUrl = Utils.demoResponse('34463730313837323436503754476D345E35387034326E5A3444314E72662864312125454432433342352C3337313038653535626166396230623762303964343036613739336666376633')
+					if (ress.url.includes(authUrl)) {
+						plus.runtime.openURL(ress.url, function(res) {
+							
+						});
+					} else {
+					}
+				}, false);
+				// #endif
 			},
 			click1(e) {
 			},
