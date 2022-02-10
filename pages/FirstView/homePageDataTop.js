@@ -194,20 +194,38 @@ export const TOPTHDATA = [
 	{
 		name: 'LU220',
 		jiage: '3190',
-		zhangfu: '0.16',
+		zhangfu: '10.00',
 		updown: true,
 		Swipeshow: false
 	},{
 		name: '焦煤2201',
 		jiage: '16300',
-		zhangfu: '2.09',
+		zhangfu: '9.89',
 		updown: true,
 		Swipeshow: false
 	},{
 		name: '鸡蛋2201',
 		jiage: '562.88',
-		zhangfu: '0.26',
+		zhangfu: '9.9',
 		updown: true,
+		Swipeshow: false
+	},{
+		name: '生猪2201',
+		jiage: '16300',
+		zhangfu: '9.92',
+		updown: false,
+		Swipeshow: false
+	},{
+		name: 'LU220',
+		jiage: '3771',
+		zhangfu: '8.99',
+		updown: true,
+		Swipeshow: false
+	},{
+		name: '豆粕2201',
+		jiage: '3190',
+		zhangfu: '8.98',
+		updown: false,
 		Swipeshow: false
 	}
 ]

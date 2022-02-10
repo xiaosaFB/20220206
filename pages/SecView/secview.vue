@@ -1,13 +1,13 @@
 <template>
 	<view class="content">
     <!-- search -->
-    <!-- <view class="q-title-search">
-      <text class="text">行情</text>
+    <view class="q-title-search">
+      
       <view class="search">
         <u-search 
           placeholder="搜索期货" bg-color="none" 
           border-color="#d5cabb"
-          shape="square" :show-action="false" 
+			:show-action="false" 
           v-model="keyword"
           @change="onSearch">
         </u-search>
@@ -19,11 +19,22 @@
           ref="uTabs" 
           :list="list" 
           :current="current" 
-          bar-width="70" 
+         lineWidth="100"
+		 lineColor="#f56c6c"
           font-size="32"
           active-color="#c7ab6c"
-          inactive-color="#979c95"
+          inactive-color="#ED6660"
           bold item-width="130"
+		  :activeStyle="{
+					color: '#ED6660',
+					fontWeight: 'bold',
+					transform: 'scale(1.05)'
+				}"
+		  :inactiveStyle="{
+					color: '#c7ab6c',
+					transform: 'scale(1)'
+				}"
+		  itemStyle="padding-left: 15px; padding-right: 15px; height: 34px;"
           @change="tabsChange">
         </u-tabs>
       </view>
@@ -44,7 +55,7 @@
           </scroll-view>
         </swiper-item>
       </swiper>
-    </view> -->
+    </view>
 	</view>
 </template>
 
@@ -61,11 +72,11 @@
         list: [{
           name: '自选'
         },{
-          name: '主板'
+          name: '金属'
         },{
-          name: '恒指'
+          name: '国内'
         },{
-          name: '原油'
+          name: '国外'
         }],
         current: 0, // tabs组件的current值，表示当前活动的tab选项
         swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
@@ -152,9 +163,9 @@
 	padding: 0 30rpx;
 }
 .q-title-search {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
   padding: 16rpx 40rpx;
   .text {
     font-size: 40rpx;

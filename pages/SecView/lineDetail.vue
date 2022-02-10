@@ -7,23 +7,11 @@
 				<text class="name" style="padding-left: 40rpx;">最新价格</text>
 				<text class="name">涨跌幅度</text>
 			</view> -->
-			
-			<view class="top_moban" style="padding: 5rpx;">
-				<view class="boolviewcss">
-					名称
-					<text class="name">{{name}}</text>
-				</view>
-				<view class="boolviewcss">
-					价格
-					<text :class="(zhangdiefu.split('-').length==1)?'redcolor':'greencolor'" style="padding-right: 20rpx;">￥{{jiage}}</text>
-				</view>
-				<view class="boolviewcss">
-					涨幅
-					<text :class="(zhangdiefu.split('-').length==1)?'redcolor':'greencolor'">{{zhangdiefu}}%</text>
-				</view>
+			<view style="width: 100%;">
+				<text class="name">名称：</text>
+				<text class="name">{{name}}</text>
 			</view>
-			<button @click="tianjiazixuan" type="default">{{buttonstatus==1?'加入我的自选':'取消自选'}}</button>
-			
+					
 		</view> 
 		<qiun-data-charts
 		    type="candle"
@@ -39,6 +27,18 @@
 		    :ontouch="true"
 		    :onmouse="false"
 		  />
+		  <view class="top_moban" style="padding: 5rpx;">
+		  	
+		  	<view class="boolviewcss">
+		  		价格
+		  		<text :class="(zhangdiefu.split('-').length==1)?'redcolor':'greencolor'" style="padding-right: 20rpx;">￥{{jiage}}</text>
+		  	</view>
+		  	<view class="boolviewcss">
+		  		涨幅
+		  		<text :class="(zhangdiefu.split('-').length==1)?'redcolor':'greencolor'">{{zhangdiefu}}%</text>
+		  	</view>
+		  </view>
+		  <button class="boolviewcss" style="width: 100%;" @click="tianjiazixuan" type="default">{{buttonstatus==1?'加入我的自选':'取消自选'}}</button>
 		<u-toast ref="uToast"></u-toast>
 	</view>
 </template>
@@ -201,19 +201,28 @@
 
 <style lang="scss" scoped>
 	.content {
+		text-align: center;
+		padding-bottom: 0;
+		padding-bottom: constant(safe-area-inset-bottom);  
+		padding-bottom: env(safe-area-inset-bottom);  
+		overflow: hidden;
+		background: url(@/static/linebg.png)  fixed bottom left;
+		min-height: 100vh;
 		.boolviewcss {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			background-color: #FFFFFF;
-			width: 30%;
-			height: 100px;
+			width: 50%;
+			height: 50px;
 			border-radius: 10px;
-			box-shadow: 0px -1px 0px 0px #333,   /*上边阴影 */
-						-0.2px 0px 0px 0px #333,   /*左边阴影  */
-						0.2px 0px 0px 0px #333,    /*右边阴影 */
-						0px 1px 0px 0px #333;     /*下边阴影 */
+			color: #FFF;
+			box-shadow: 0px -1px 0px 0px #F04864,   /*上边阴影 */
+						-0.2px 0px 0px 0px #F04864,   /*左边阴影  */
+						0.2px 0px 0px 0px #F04864,    /*右边阴影 */
+						0px 1px 0px 0px #F04864;     /*下边阴影 */
+			background: url(@/static/linebg.png)  fixed bottom left;
+			background-size:100% 100%;
 		}
 		.top_moban {
 			display: flex;
@@ -222,17 +231,26 @@
 			margin-bottom: 50rpx;
 		}
 		.content_top {
-			min-height: 100rpx;
+			// min-height: 100rpx;
 			margin-top: 30rpx;
 			padding: 10rpx;
 			border-radius: 9rpx;
-			background-color: #ffffff;
-			-webkit-box-shadow: 0rpx 10rpx 10rpx 0 #efefef;
-			box-shadow: 0rpx 10rpx 10rpx 0 #efefef;
+			// background-color: #ffffff;
+			// -webkit-box-shadow: 0rpx 1rpx 1rpx 0 #efefef;
+			// box-shadow: 0rpx 1rpx 1rpx 0 #efefef;
+			
+			// text-align: center;
+			// padding-bottom: 0;
+			// padding-bottom: constant(safe-area-inset-bottom);  
+			// padding-bottom: env(safe-area-inset-bottom);  
+			// overflow: hidden;
+			// background: url(@/static/linebg.png) no-repeat fixed top center;
+			// background-size:100% 100%;
+			
 		}
 		.name {
 			font-size: 18px;
-			color: #333333;
+			color: #efefef;
 		}
 		.redcolor {
 			color: #ea5050;

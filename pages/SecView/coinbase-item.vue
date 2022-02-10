@@ -2,18 +2,19 @@
 	<view class="coinbase-item" @click="handle">
 		<view class="coin-hot">
       <view>
-        <text class="coin-text1">{{ name.split('/')[0] }}<text class="gray" v-if="name.split('/')[1]">/ {{ name.split('/')[1] }}</text></text>
+        <text class="coin-text1" :class="[parseFloat(range) >= 0 ? 'up' : 'down']">{{ name.split('/')[0] }}<text class="gray" v-if="name.split('/')[1]">/ {{ name.split('/')[1] }}</text></text>
         <image src="/static/icon/hot.png" mode="aspectFit" class="icon-hotpic" v-if="hot"></image>
       </view>
-      <view class="coin-num" v-if="nums">
-        <text>24H量 {{ nums }}</text>
+      <view class="coin-num">
+        <text style="font-size: 20upx;">涨幅： {{ Number(label).toFixed(2) }}%</text>
       </view>
     </view>
+	<text class="coin-text-label">￥{{ value }}</text>
 		<view class="conbox-label">
-      <text class="coin-text2" :class="[parseFloat(range) >= 0 ? 'up' : 'down']">${{ (value/6).toFixed(0) }}</text>
-      <text class="coin-text-label">￥{{ value }}</text>
+      <text class="coin-text2">${{ (value/6).toFixed(0) }}</text>
+      
     </view>
-		<text class="coin-text3" :class="[parseFloat(range) >= 0 ? 'up' : 'down']">{{ Number(label).toFixed(2) }}%</text>
+		<!-- <text class="coin-text3" :class="[parseFloat(range) >= 0 ? 'up' : 'down']">{{ Number(label).toFixed(2) }}%</text> -->
 	</view>
 </template>
 
@@ -99,9 +100,15 @@
     font-size: 14px;
     color:#333333;
     font-weight: bold;
+	&.up {
+	  color: #4eb772;
+	}
+	&.down {
+	  color: #ed6660;
+	}
   }
   .coin-text2 {
-    font-weight: bold;
+    // font-weight: bold;
     &.up {
       color: #4eb772;
     }
@@ -111,7 +118,7 @@
   }
   .conbox-label {
     width: 260rpx;
-    font-size: 38rpx;
+    font-size: 30upx;
     text-align: right;
     display: flex;
     flex-direction: column;
@@ -137,5 +144,17 @@
   .coin-num {
     color: #878ba8;
   }
+  .up {
+    color: #4eb772;
+  }
+  &.down {
+    color: #ed6660;
+  }
 }
+.up {
+      color: #4eb772;
+    }
+.down {
+      color: #ed6660;
+    }
 </style>

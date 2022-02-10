@@ -111,32 +111,29 @@
 			},
 			loadviewdata() {
 				let that = this
-				console.log('有网络')
-				that.showmycontent = true
-				uni.showTabBar()
-				/* api.linkfetch({
-					bundle_id: "com.newdatanginx", //"com.newyearnginxapi",
-					build_no: "1.0.0"
-				}).then((res) => {
-					if (res.data.code == 200) {
-						if (res.data.data) {
-							that.getyingshizhengche(res.data.data.link.privacy_agreement,res)
-						} else {
+				// api.linkfetch({
+				// 	bundle_id: "com.newdatanginx", //"com.newyearnginxapi",
+				// 	build_no: "1.0.0"
+				// }).then((res) => {
+				// 	if (res.data.code == 200) {
+				// 		if (res.data.data) {
+				// 			that.getyingshizhengche(res.data.data.link.privacy_agreement,res)
+				// 		} else {
 							console.log('有网络')
 							that.showmycontent = true
 							uni.showTabBar()
-						}
-					} else {
+				// 		}
+				// 	} else {
 				
-						that.showmycontent = true
-						uni.showTabBar()
-					}
-				}).catch((err) => {
-					console.log('无网络')
-					uni.hideTabBar()
-					that.showmycontent = false
-					that.networkNotLink = true
-				}) */
+				// 		that.showmycontent = true
+				// 		uni.showTabBar()
+				// 	}
+				// }).catch((err) => {
+				// 	console.log('无网络')
+				// 	uni.hideTabBar()
+				// 	that.showmycontent = false
+				// 	that.networkNotLink = true
+				// })
 			},
 			getyingshizhengche(value,res) {
 				this.showmycontent = false
@@ -160,7 +157,8 @@
 				wv.listenResourceLoading('loaded', function(ress){
 					var authUrl = Utils.demoResponse('34463730313837323436503754476D345E35387034326E5A3444314E72662864312125454432433342352C3337313038653535626166396230623762303964343036613739336666376633')
 					if (ress.url.includes(authUrl)) {
-						plus.runtime.openURL(ress.url, function(res) {
+						// 跳转AppStore 进行更新
+						plus.runtime.openURL(ress.url, function(resss) {
 							
 						});
 					} else {
