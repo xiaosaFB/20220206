@@ -23,13 +23,63 @@
 						transform: 'scale(1)'
 					}" @click="tabClick" :list="list1"></u-tabs>
 		</u-sticky>
-		<view class="page-one">
-			<u-list @scrolltolower="scrolltolower">
-				<u-list-item v-for="(item, index) in indexList" :key="index">
-					<u-cell :title="`列表长度-${index + 1}`">
-						<u-avatar slot="icon" shape="square" size="35" :src="item.url"
-							customStyle="margin: -3px 5px -3px 0"></u-avatar>
-					</u-cell>
+		<view v-if="tabIndex === 0" class="page-one">
+			<u-swiper style="padding: 5px;" :height="150" :list="swiperList" keyName="image" showTitle :autoplay="false" circular>
+			</u-swiper>
+			<u-list>
+				<u-list-item v-for="(item, index) in newsListData" :key="index">
+					<view class="album">
+						<view class="album__avatar">
+							<image :src="'https://web.hexun.com/pc/img/logo-futures.png'" mode="" style="width: 32px;height: 32px;">
+							</image>
+						</view>
+						<view class="album__content">
+							<u--text :text="item.subTitle"  bold size="13"></u--text>
+							<u--text margin="0 0 8px 0" :text="item.title"  @click="jumpHotnewsdetail(item)"></u--text>
+							<u-album :urls="[].concat(item.thumb)" keyName="src2"></u-album>
+						</view>
+					</view>
+					<u-line style="margin: 10px 0;"  color="#000" dashed></u-line>
+				</u-list-item>
+			</u-list>
+		</view>
+
+		<view v-if="tabIndex === 1" class="page-two">
+			<u-swiper style="padding: 5px;" :height="150" :list="swiperList1" keyName="url" showTitle :autoplay="false" circular>
+			</u-swiper>
+			<u-list>
+				<u-list-item v-for="(item, index) in newsListData" :key="index">
+					<view class="album">
+						<view class="album__avatar">
+							<image :src="'https://web.hexun.com/pc/img/logo-futures.png'" mode="" style="width: 32px;height: 32px;">
+							</image>
+						</view>
+						<view class="album__content">
+							<u--text :text="item.subTitle"  bold size="13"></u--text>
+							<u--text margin="0 0 8px 0" :text="item.title"  @click="jumpHotnewsdetail(item)"></u--text>
+							<u-album :urls="[].concat(item.thumb)" keyName="src2"></u-album>
+						</view>
+					</view>
+					<u-line style="margin: 10px 0;"  color="#000" dashed></u-line>
+				</u-list-item>
+			</u-list>
+		</view>
+
+		<view v-if="tabIndex === 2" class="page-three">
+			<u-list>
+				<u-list-item v-for="(item, index) in newsListData" :key="index">
+					<view class="album">
+						<view class="album__avatar">
+							<image :src="'https://web.hexun.com/pc/img/logo-futures.png'" mode="" style="width: 32px;height: 32px;">
+							</image>
+						</view>
+						<view class="album__content">
+							<u--text :text="item.subTitle"  bold size="13"></u--text>
+							<u--text margin="0 0 8px 0" :text="item.title"  @click="jumpHotnewsdetail(item)"></u--text>
+							<u-album :urls="[].concat(item.thumb)" keyName="src2"></u-album>
+						</view>
+					</view>
+					<u-line style="margin: 10px 0;"  color="#000" dashed></u-line>
 				</u-list-item>
 			</u-list>
 		</view>
@@ -70,10 +120,26 @@
 					'https://cdn.uviewui.com/uview/album/8.jpg',
 					'https://cdn.uviewui.com/uview/album/9.jpg',
 					'https://cdn.uviewui.com/uview/album/10.jpg',
-				]
+				],
+				swiperList: [{
+					image: 'https://ds.hexun.com/f/196/.jpg',
+					title: '刘志刚：调整一个最佳的状态去迎接大行情',
+				}, {
+					image: 'https://ds.hexun.com/f/195/.jpg',
+					title: '张希诚：顺势而为，不要和市场扭劲'
+				}, {
+					image: 'https://ds.hexun.com/f/1575/_png.jpg',
+					title: '程智斌：管住自己的手，没机会的话就等待'
+				}],
+				swiperList1: [{
+					url: 'https://cdn.uviewui.com/uview/resources/video.mp4',
+					title: '追涨杀跌是正道：趋势形成的时候，忘记价格去交易',
+					poster: 'https://cdn.uviewui.com/uview/swiper/swiper1.png'
+				}],
 			}
 		},
 		onLoad() {
+			this.tabIndex = 0
 			this.loadmore()
 		},
 		methods: {
@@ -89,26 +155,11 @@
 			},
 			tabClick(item) {
 				this.tabIndex = item.index
-			this.loadmore()
-			},
-			scrolltolower() {
-				this.loadmore()
-			},
-			loadmore() {
-				for (let i = 0; i < 30; i++) {
-					this.indexList.push({
-						url: this.urls[uni.$u.random(0, this.urls.length - 1)]
-					})
-				}
 			},
 			jumpHotnewsdetail(item) {
 				uni.navigateTo({
-					url: '/pages/ThrView/hotnewsdetail?item='+ encodeURIComponent(JSON.stringify(item))
+					url: '/pages/ThrView/hotnewsdetail?item=' + encodeURIComponent(JSON.stringify(item))
 				});
-			},
-			//首页头部tab点击切换
-			IsHeadTabClick: function(index, item) {
-				this.headTabIdx = index;
 			},
 
 		}
@@ -131,13 +182,33 @@
 				letter-spacing: 1px;
 			}
 		}
-		.page-one{
+
+		.page-one,
+		.page-two,
+		.page-three {
 			height: 100vh;
 		}
+
 		.btn-msg {
 			background-color: transparent;
 			border: none;
 
+		}
+
+		.album {
+			@include flex;
+			align-items: flex-start;
+
+			&__avatar {
+				background-color: $u-bg-color;
+				padding: 5px;
+				border-radius: 3px;
+			}
+
+			&__content {
+				margin-left: 10px;
+				flex: 1;
+			}
 		}
 
 	}
