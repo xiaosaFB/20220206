@@ -132,15 +132,15 @@
 					title: '程智斌：管住自己的手，没机会的话就等待'
 				}],
 				swiperList1: [{
-					url: 'https://cdn.uviewui.com/uview/resources/video.mp4',
+					//url: 'https://cdn.uviewui.com/uview/resources/video.mp4',
+					url:'https://apd-79d9103ec5da8c9ad5c855682a07ee2e.v.smtcdns.com/om.tc.qq.com/AOwHVx8YmoJ85qvBs6JGGrVJ1WEJ9c9AKA9YPiIIuo1k/uwMROfz2r5zAoaQXGdGnC2dfDma7NyshNhpHvcEisM-VRrjn/d3154vf5gi0.mp4?sdtfrom=v1010&guid=f899b47191953115fa780d23c50ce61f&vkey=9B9292A3D9CA6943544DE7A436AEBF67C29AD067CAE9E4F7E1627C39B2486DEBC5F5BA52EACF773F56859C4DEDD0D64B64891080BCB1EB1AB2DD23364D8551B2C2B73565F0D6C2B0451A6A4E617393F76E1FD2E987FE716C0C4BE55A38054166CD93888E530D411ABAED56945C3304A05AB7AD1C95B3CC84A0BAA407B0AFF2280C6A4ECA3A576D1A',
 					title: '追涨杀跌是正道：趋势形成的时候，忘记价格去交易',
-					poster: 'https://cdn.uviewui.com/uview/swiper/swiper1.png'
+					poster: 'https://img0.baidu.com/it/u=2760268466,385310236&fm=253&fmt=auto&app=120&f=JPEG?w=750&h=500'
 				}],
 			}
 		},
 		onLoad() {
 			this.tabIndex = 0
-			this.loadmore()
 		},
 		methods: {
 			focusInput() {
