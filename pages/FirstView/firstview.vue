@@ -162,8 +162,8 @@ export default {
 		return {
 			indicator: true,
 			list3: [
-				'../../static/pic_16313389660307i86GGRlVL5O-EEEgCeXs.png',
-				'../../static/pic_1631338.png',
+				'../../static/11111.png',
+				'../../static/22222.png',
 				'https://img1.baidu.com/it/u=2643548377,3443601659&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=342.png',
 			],
 			filterList: false,
